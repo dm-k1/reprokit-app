@@ -14,5 +14,5 @@ Suggests:
     shinylive,
     testthat (>= 3.0.0)
 Remotes:
-    OWNER/reprokit
+    dm-k1/reprokit
 Config/testthat/edition: 3

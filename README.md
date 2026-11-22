@@ -1,6 +1,6 @@
 # reprokit-app
 
-Shiny front end for [reprokit](https://github.com/OWNER/reprokit). It runs in
+Shiny front end for [reprokit](https://github.com/dm-k1/reprokit). It runs in
 the browser (shinylive/webR) and is hosted on GitHub Pages.
 
 | Tab | For |
