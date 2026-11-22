@@ -1,0 +1,4 @@
+library(shiny)
+library(bslib)
+app_dir <- testthat::test_path("..", "..", "app")
+for (f in list.files(file.path(app_dir, "R"), full.names = TRUE)) source(f, local = FALSE)

@@ -1,0 +1,11 @@
+# Copy to <short-name>.yml. One scenario per file; the file name is its id.
+title: "Short title"
+situation: >
+  What the researchers did and why they cannot share the raw data.
+question: >
+  What students must decide (e.g. which verdict applies, what readers lose).
+reported:          # statistics as they appear in the paper
+  n: 40
+expected_verdict: summaries_suffice   # one of reprokit::verdicts()
+discussion: >
+  Points for the teacher.
