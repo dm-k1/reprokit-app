@@ -1,0 +1,41 @@
+type: share
+title: "Learning faces"
+field: "Cognitive neuropsychology"
+story: >
+  People with developmental prosopagnosia have lifelong difficulty recognising faces,
+  even of friends and family. A neuropsychology team recruited seven adults with the
+  condition through a patient association and offered them a four-week online training
+  in which they practised telling faces apart. Before and after the training, each
+  participant took a face memory test scored from 0 to 72. The team compares the scores
+  before and after the training with a paired-samples t-test.
+reason_label: "Their plan for the data"
+sharing_reason: >
+  The authors share the full anonymised data openly. For this exercise, enter the study
+  as if the data could not be shared, and see whether summary statistics alone would
+  have been enough.
+plan: >
+  "All seven participants agreed to open data. We post the anonymised file on OSF with
+  the paper, together with the training materials."
+file: face-memory-training.csv
+codebook:
+  participant: "participant code"
+  age: "age in years"
+  face_memory_before: "face memory score before the training (0 to 72)"
+  face_memory_after: "face memory score after the training (0 to 72)"
+analysis:
+  handler: t_paired
+  test: paired
+  columns:
+    first: face_memory_before
+    second: face_memory_after
+expected_verdict: needs_raw_data
+question: >
+  Run the analysis in "I can't share my data", as if the data could not be shared.
+  What does the oracle say, and why? Was sharing the full data the right call?
+answer: >
+  The raw data are needed. With only seven people, the means, SDs and correlation come
+  so close to the individual scores that they would protect no one; they would only
+  give readers less information. In rare-condition research almost every dataset is
+  small, and every participant counts. Sharing the full file, with consent, is exactly
+  right here: it lets other teams pool data across studies and check each person's
+  improvement, which no summary can show.

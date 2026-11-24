@@ -1,0 +1,40 @@
+type: share
+title: "Night shift, slow mind?"
+field: "Occupational psychology"
+story: >
+  Long night shifts are thought to wear down attention. Twenty nurses from one hospital
+  ward did a ten-minute reaction-time task at the end of their shift, pressing a button
+  whenever a counter appeared on a screen. The outcome is the number of lapses:
+  responses slower than half a second. Sixteen nurses had just finished a day shift and
+  four a night shift. The team compares the two groups with Welch's t-test and plans
+  to recommend shorter night shifts to the hospital board.
+reason_label: "Their reason for not sharing the raw data"
+sharing_reason: >
+  We spent two years collecting these data and plan several more papers from them, so
+  we would rather not hand them to other researchers yet. Anonymising them properly
+  would also take a lot of work.
+file: night-shift-attention.csv
+codebook:
+  nurse: "participant code"
+  shift: "day or night (the shift just finished)"
+  years_on_ward: "years working on this ward"
+  lapses: "number of responses slower than 500 ms"
+analysis:
+  handler: t_independent
+  test: welch
+  columns:
+    outcome: lapses
+    group: shift
+expected_verdict: needs_raw_data
+question: >
+  Run the analysis in "I can't share my data". What does the oracle say? Is the reason
+  for not sharing a good one, and what should the authors do instead?
+answer: >
+  The raw data are needed. Only four nurses worked the night shift, so their mean and
+  SD come close to their individual scores: on one ward, colleagues could easily tell
+  who they are. Summaries would protect no one and only give readers less. The reason
+  given is not a legal or ethical one but two of Chambers' "honest reasons": treating
+  data as property and avoiding effort. Better options: share the data under a
+  data-use agreement, set an embargo with a release date, or, if the four night-shift
+  nurses really cannot be protected, say so and recruit more before drawing
+  conclusions for a whole hospital.

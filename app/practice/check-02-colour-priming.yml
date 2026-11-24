@@ -1,0 +1,48 @@
+type: check
+title: "Warm colours, warm hearts?"
+field: "Social psychology"
+story: >
+  A social cognition lab reports that the colour of a room changes how generous people
+  are. Sixty undergraduates were tested one at a time in a small cubicle lit in grey,
+  blue or red light, twenty per colour. After a filler task they received ten one-euro
+  coins and could donate as many whole euros as they liked to a children's charity,
+  in private. The paper describes the results as replicating the lab's five earlier
+  colour studies "with remarkable consistency", and the press release promises that
+  charities could raise more money simply by changing their lighting.
+sharing_reason: >
+  "Unfortunately the original data files were lost when the lab laptop was stolen.
+  Only the summary table in the paper survived."
+as_printed: >
+  Donations rose from the grey room (M = 3.12, SD = 1.21) to the blue room (M = 4.10,
+  SD = 1.20) to the red room (M = 5.08, SD = 1.22), F(2, 57) = 21.84, p < .001,
+  η² = .43.
+question: >
+  Send the numbers to the checker (groups in the order grey, blue, red). Do they fit
+  together? Then look at the numbers yourself: each person gave a whole number of
+  euros, and there were 20 people per room. Is anything else unusual?
+check:
+  handler: anova_oneway
+  reported:
+    n: ["20", "20", "20"]
+    m: ["3.12", "4.10", "5.08"]
+    sd: ["1.21", "1.20", "1.22"]
+    f: "21.84"
+    df1: "2"
+    df2: "57"
+    eta2: ".43"
+    p: "< .001"
+  declared: {}
+expected:
+  checked: true
+  consistent: false
+answer: >
+  The numbers do not add up: the means and SDs imply an F of about 13, not 21.84, while
+  F, p and η² agree with each other. The checker deliberately does not say which number
+  is off. There are more warning signs. With 20 people giving whole euros, a mean must
+  be a multiple of 0.05, so 3.12 and 5.08 are impossible (this is the GRIM test of
+  Brown and Heathers). The three SDs are almost identical, the effect is huge for a
+  subtle manipulation, earlier studies replicated "with remarkable consistency", and
+  the raw data are gone. Patterns like these are what raised suspicion in the cases
+  Chambers describes (Smeesters, Sanna). None of them proves fabrication: a typo or a
+  copying error looks the same. In those cases only the raw data settled the question,
+  which is exactly why "the data were lost" is so costly.

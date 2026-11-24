@@ -1,0 +1,41 @@
+type: share
+title: "Calm classrooms"
+field: "Clinical child psychology"
+story: >
+  A school psychology team compared two eight-week programmes for young adolescents
+  with elevated anxiety in two small rural secondary schools. Forty-five pupils aged
+  12 to 15 were randomly assigned to a cognitive-behavioural group programme, a
+  mindfulness programme, or a waiting list (15 per group). Before and after the eight
+  weeks, every pupil filled in an anxiety questionnaire scored from 0 to 60, where
+  higher scores mean more anxiety. The main analysis compares the three groups on the
+  anxiety scores after the programme with a one-way ANOVA.
+reason_label: "Their reason for not sharing the raw data"
+sharing_reason: >
+  The pupils are minors with elevated anxiety in two small schools. Parents consented
+  to the study but not to sharing the data, and age, school and programme together
+  could identify individual children.
+file: school-anxiety-programmes.csv
+codebook:
+  pupil: "participant code"
+  programme: "CBT group, Mindfulness or Waiting list"
+  age: "age in years (12 to 15)"
+  anxiety_before: "anxiety score before the programme (0 to 60)"
+  anxiety_after: "anxiety score after the programme (0 to 60)"
+analysis:
+  handler: anova_oneway
+  test: oneway
+  columns:
+    outcome: anxiety_after
+    group: programme
+expected_verdict: summaries_suffice
+question: >
+  Run the analysis in "I can't share my data". Is the reason for not sharing a good
+  one? Would summary statistics be enough for readers, and what would they still lose?
+answer: >
+  Summary statistics suffice: the size, mean and SD of each group determine the F test
+  exactly, and no group is so small that its summary gives a pupil away. The reason is
+  a legitimate one: minors, a sensitive topic, small schools, and no consent for
+  sharing. The appendix is the minimum the authors owe their readers. Look at what
+  readers lose, though: the before scores are not part of the analysis, so nobody can
+  check whether the groups started at the same level or rerun the analysis with the
+  before scores as a covariate. A data-use agreement would let other researchers do that.
