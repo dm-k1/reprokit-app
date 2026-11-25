@@ -74,9 +74,17 @@ test_that("no drag handles; Publish data runs with Check this dataset", {
   expect_false(grepl("Consult the oracle", html, fixed = TRUE))
 })
 
+# Whether every sidebar is fixed open. Older bslib leaves the fold button
+# out; newer bslib always writes it and hides it for fixed sidebars, which it
+# marks with data-collapsible-desktop="false".
+sidebars_fixed <- function(html) {
+  !grepl("collapse-toggle", html, fixed = TRUE) ||
+    !grepl("data-collapsible-desktop=\"true\"", html, fixed = TRUE)
+}
+
 test_that("sidebars have no collapse toggle and step 3 help is a fold-out", {
   html <- as.character(app_ui(practice))
-  expect_false(grepl("collapse-toggle", html, fixed = TRUE))
+  expect_true(sidebars_fixed(html))
   expect_match(html, "<details class=\"fold\">", fixed = TRUE)
 })
 
@@ -92,7 +100,7 @@ test_that("result boxes show a title line, then the value and its hint", {
 test_that("sidebars cannot be resized or folded away", {
   html <- as.character(app_ui(practice))
   expect_false(grepl("data-resizable", html, fixed = TRUE))
-  expect_false(grepl("collapse-toggle", html, fixed = TRUE))
+  expect_true(sidebars_fixed(html))
 })
 
 test_that("the title bar has a dark mode switch", {

@@ -140,6 +140,19 @@ a { color: var(--link); }
   border-color: var(--border) var(--border) var(--surface) !important; }
 .mode-tabs > .card-header .nav-link .fa { margin-right: .4rem; }
 .mode-tabs > .card-body { padding: 0; background: var(--surface); }
+/* Pass the screen height down from the tab card to the tool inside it, so
+   the sidebar and the results scroll on their own instead of the page
+   growing past the bottom of the screen. Set here rather than left to bslib,
+   whose fill classes differ between versions. */
+.mode-tabs { flex: 1 1 auto; min-height: 0; overflow: hidden; }
+.mode-tabs > .tab-content, .mode-tabs > .card-body,
+.mode-tabs > .card-body > .tab-content { display: flex; flex-direction: column;
+  flex: 1 1 auto; min-height: 0; }
+.mode-tabs > .tab-content > .tab-pane.active,
+.mode-tabs > .card-body > .tab-content > .tab-pane.active { display: flex;
+  flex-direction: column; flex: 1 1 auto; min-height: 0; }
+.mode-tabs .tab-pane.active > .bslib-sidebar-layout { flex: 1 1 auto; min-height: 0 !important;
+  height: auto; }
 
 /* Help tab: sub-tabs along the top, each filling the rest of the screen. */
 .help-tabs { display: flex; flex-direction: column; flex: 1 1 auto; min-height: 0;
@@ -165,14 +178,14 @@ a { color: var(--link); }
   border: 0 !important; border-radius: 0 !important; }
 .tool-layout > .main { background: var(--page); padding: .8rem .9rem; gap: .7rem; }
 .tool-layout .bslib-card .nav-underline .nav-link { font-weight: 600; }
+/* The sidebar scrolls on its own when the steps are longer than the screen. */
 .tool-layout > .sidebar { border-right: 1px solid var(--border);
-  overflow: hidden !important; }
+  overflow-y: auto !important; overflow-x: hidden !important; }
 .tool-layout > .sidebar > .sidebar-content { display: flex; flex-direction: column;
-  gap: .5rem; height: 100%; overflow-y: auto; overflow-x: hidden;
-  padding-top: 0 !important; }
+  gap: .5rem; min-height: 100%; padding-top: 0 !important; }
 .practice-layout > .sidebar > .sidebar-content { padding-top: .9rem !important; }
-/* No edge to drag: the sidebars keep their width. */
-.bslib-sidebar-resize-handle { display: none !important; }
+/* No edge to drag and no fold button: the sidebars keep their width. */
+.bslib-sidebar-resize-handle, .tool-layout > .collapse-toggle { display: none !important; }
 /* The run button sits at the end of the steps, never over them. */
 .sidebar-actions { background: var(--surface); padding-top: .9rem; margin-top: auto; }
 .sidebar .accordion { --bs-accordion-bg: var(--surface);
