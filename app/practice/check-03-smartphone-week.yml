@@ -1,0 +1,42 @@
+type: check
+title: "A week without smartphones"
+field: "Health psychology"
+story: >
+  Forty students volunteered to hand in their smartphones for one week and use a basic
+  phone for calls only. They rated their wellbeing on a 14-item questionnaire (each item
+  from 1 to 5, averaged) on the last day of a normal week and again on the last day of
+  the phone-free week. The paper is short and upbeat: wellbeing went up, and the authors
+  recommend phone-free weeks for all first-year students. The result is reported in one
+  sentence, with the means and SDs APA asks for and a p value, but without the test
+  statistic.
+sharing_reason: >
+  "Participants also kept diaries about their phone use and mood. These are deeply
+  personal, and the consent form promised that only the research team would see them."
+as_printed: >
+  Wellbeing rose from M = 3.42 (SD = 0.71) in the normal week to M = 3.71 (SD = 0.68) in
+  the phone-free week, a significant improvement (paired-samples t-test, p = .004).
+question: >
+  Send the numbers to the checker. Can this result be checked at all? If not, what
+  would a reader need, and could the authors give it without breaking their promise
+  to participants?
+check:
+  handler: t_paired
+  reported:
+    n: "40"
+    m: ["3.42", "3.71"]
+    sd: ["0.71", "0.68"]
+    p: ".004"
+  declared: {}
+  mu: 0
+expected:
+  checked: false
+  consistent: true
+answer: >
+  Nothing can be checked. A paired t-test depends on how strongly each person's two
+  scores are related (the correlation between the weeks), and the means and SDs of each
+  week, the numbers APA asks for, do not determine it. Without t, and without the raw
+  data or that correlation, the p value cannot be confirmed or questioned. This is
+  where APA's generic list stops being enough. The fix is small: the correlation
+  between the two weeks is a single number that identifies no one, and with it the
+  check would reach level 3. The diaries can stay private; the wellbeing scores, or at
+  least that one correlation, could be shared.
