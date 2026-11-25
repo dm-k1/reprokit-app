@@ -23,14 +23,14 @@ codebook:
   face_memory_before: "face memory score before the training (0 to 72)"
   face_memory_after: "face memory score after the training (0 to 72)"
 analysis:
-  handler: t_paired
   test: paired
+  version: paired
   columns:
     first: face_memory_before
     second: face_memory_after
 expected_verdict: needs_raw_data
 question: >
-  Run the analysis in "I can't share my data", as if the data could not be shared.
+  Run the analysis in Publish data, as if the data could not be shared.
   What does the oracle say, and why? Was sharing the full data the right call?
 answer: >
   The raw data are needed. With only seven people, the means, SDs and correlation come

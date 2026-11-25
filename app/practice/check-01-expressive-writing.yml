@@ -21,7 +21,7 @@ question: >
   Send the numbers to the checker. Do they fit together? How much of the result can a
   reader check from what is printed?
 check:
-  handler: t_independent
+  test: independent
   reported:
     n: ["34", "33"]
     m: ["41.3", "47.6"]
@@ -32,7 +32,7 @@ check:
     d: "-0.62"
     ci_lower: "-11.23"
     ci_upper: "-1.37"
-  declared: {}
+  claims: {}
 expected:
   checked: true
   consistent: true

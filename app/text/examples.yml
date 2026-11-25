@@ -1,0 +1,167 @@
+# The example behind each test's "See a practice example" button: a short
+# story and the numbers as a paper would print them. Every one of them is
+# consistent according to reprokit (tests/testthat/test-text.R checks this);
+# the Practice examples tab holds the harder cases. Numbers are strings, so
+# their decimals count. A matrix is written as a list of rows.
+
+independent:
+  note: >-
+    Two groups of 10 volunteers each took a different sleep aid; the outcome
+    is how many extra hours they slept. Reported with Welch's t.
+  reported:
+    n: ["10", "10"]
+    m: ["0.75", "2.33"]
+    sd: ["1.79", "2.00"]
+    t: "-1.86"
+    df: "17.8"
+    p: ".079"
+
+paired:
+  note: >-
+    Twenty students rated their stress from 1 to 7 before and after four weeks
+    with a relaxation app. The paper does not report the correlation between
+    the two ratings.
+  reported:
+    n: "20"
+    m: ["5.1", "4.6"]
+    sd: ["1.2", "1.1"]
+    t: "2.85"
+    df: "19"
+    p: ".010"
+
+one_sample:
+  note: >-
+    Twenty volunteers' extra hours of sleep on a new sleep aid, compared with a
+    test value of 0.5 hours (the gain a placebo usually gives).
+  reported:
+    n: "20"
+    m: ["1.54"]
+    sd: ["2.02"]
+    t: "2.30"
+    df: "19"
+    p: ".033"
+  mu: 0.5
+
+oneway:
+  note: >-
+    Thirty participants rated their mood from 1 to 10 after watching a sad, a
+    neutral or a happy film clip, ten per clip.
+  reported:
+    n: ["10", "10", "10"]
+    m: ["5.03", "4.66", "5.53"]
+    sd: ["0.58", "0.79", "0.44"]
+    f: "4.85"
+    df1: "2"
+    df2: "27"
+    eta2: "0.26"
+    p: ".016"
+
+factorial:
+  note: >-
+    Forty-eight students did a proofreading task after a normal night or a
+    night without sleep (factor A, rows: rested, deprived), with a placebo or
+    caffeine (factor B, columns: placebo, caffeine), twelve per cell. The
+    outcome is the number of errors; the paper reports the main effect of
+    sleep.
+  reported:
+    n: [["12", "12"], ["12", "12"]]
+    m: [["3.54", "3.78"], ["6.43", "4.74"]]
+    sd: [["1.50", "1.11"], ["1.04", "1.76"]]
+    f: "23.23"
+    df1: "1"
+    df2: "44"
+    p: "< .001"
+    eta2: "0.35"
+  effect: A
+
+pearson:
+  note: >-
+    Sleep duration and wellbeing in a sample of students, reported the short
+    APA way: r(28) = .41, p = .024, without n, means or SDs.
+  reported:
+    r: ".41"
+    df: "28"
+    p: ".024"
+
+lm_simple:
+  note: >-
+    Forty students reported how many hours they slept before an exam; hours
+    of sleep predict the exam score (0 to 100).
+  reported:
+    b: {sleep: "3.24"}
+    se: {sleep: "1.46"}
+    t: {sleep: "2.22"}
+    p: {sleep: ".033"}
+    r2: "0.11"
+    f: "4.92"
+    df1: "1"
+    df2: "38"
+    n: "40"
+
+lm:
+  note: >-
+    Eighty employees rated their stress; hours of sleep and social support
+    are the two predictors.
+  reported:
+    b: {sleep: "-1.66", support: "-1.94"}
+    se: {sleep: "0.34", support: "0.32"}
+    t: {sleep: "-4.90", support: "-5.99"}
+    p: {sleep: "< .001", support: "< .001"}
+    r2: "0.43"
+    f: "28.75"
+    df1: "2"
+    df2: "77"
+    n: "80"
+  k: 2
+
+lm_moderation:
+  note: >-
+    In 120 students, stress lowers wellbeing, social support raises it, and
+    the interaction term tests whether support softens the effect of stress.
+    Both predictors were centred.
+  reported:
+    b: {stress: "-0.51", support: "0.36", "stress:support": "0.20"}
+    se: {stress: "0.09", support: "0.08", "stress:support": "0.08"}
+    t: {stress: "-5.80", support: "4.38", "stress:support": "2.63"}
+    p: {stress: "< .001", support: "< .001", "stress:support": ".010"}
+    r2: "0.37"
+    f: "22.58"
+    df1: "3"
+    df2: "116"
+    n: "120"
+
+mediation:
+  note: >-
+    In 100 adults, more mindfulness (X) goes with less rumination (M), and
+    less rumination with less anxiety (Y): does mindfulness lower anxiety
+    through rumination?
+  reported:
+    b: {a: "-0.54", b: "0.55", c: "-0.38", c_prime: "-0.08"}
+    se: {a: "0.08", b: "0.12", c: "0.10", c_prime: "0.12"}
+    t: {a: "-6.79", b: "4.56", c: "-3.65", c_prime: "-0.72"}
+    p: {a: "< .001", b: "< .001", c: "< .001", c_prime: ".474"}
+    n: "100"
+    indirect: "-0.30"
+
+chisq:
+  note: >-
+    One hundred students were or were not sent a reminder text (rows: yes,
+    no) and did or did not attend a follow-up session (columns: yes, no).
+    Reported with Yates' correction, R's default for a 2 x 2 table.
+  reported:
+    n: [["34", "21"], ["16", "29"]]
+    chisq: "5.82"
+    df: "1"
+    p: ".016"
+    v: "0.26"
+
+gof:
+  note: >-
+    Sixty students chose one of three study rooms (quiet, group, cafe); are
+    the rooms chosen equally often?
+  reported:
+    n: ["14", "28", "18"]
+    chisq: "5.20"
+    df: "2"
+    p: ".074"
+    v: "0.29"

@@ -20,14 +20,14 @@ codebook:
   years_on_ward: "years working on this ward"
   lapses: "number of responses slower than 500 ms"
 analysis:
-  handler: t_independent
-  test: welch
+  test: independent
+  version: welch
   columns:
     outcome: lapses
     group: shift
 expected_verdict: needs_raw_data
 question: >
-  Run the analysis in "I can't share my data". What does the oracle say? Is the reason
+  Run the analysis in Publish data. What does the oracle say? Is the reason
   for not sharing a good one, and what should the authors do instead?
 answer: >
   The raw data are needed. Only four nurses worked the night shift, so their mean and

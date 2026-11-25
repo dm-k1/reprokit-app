@@ -21,7 +21,7 @@ question: >
   together? Then look at the numbers yourself: each person gave a whole number of
   euros, and there were 20 people per room. Is anything else unusual?
 check:
-  handler: anova_oneway
+  test: oneway
   reported:
     n: ["20", "20", "20"]
     m: ["3.12", "4.10", "5.08"]
@@ -31,7 +31,7 @@ check:
     df2: "57"
     eta2: ".43"
     p: "< .001"
-  declared: {}
+  claims: {}
 expected:
   checked: true
   consistent: false

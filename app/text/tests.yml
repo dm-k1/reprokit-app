@@ -1,0 +1,252 @@
+# The tests the app offers, in menu order. Each entry says how the two
+# directions use it:
+#
+# share: how an author's columns become reprokit's formula
+#   columns:  role -> label and type (numeric or group); {role} in `formula`
+#   formula:  the formula, with {role} for each picked column (backticked)
+#   column_args: arguments filled with a column name (e.g. the mediator)
+#   versions: test codes the author chooses from (the first is the default)
+#   options:  extra inputs: tails, level, mu, correct, p0
+#   (no share entry: the test can only be shared as a fitted model, .rds)
+#
+# check: which reported numbers the form asks for
+#   tests:  reprokit's check_reported() test codes (two: the paper chooses)
+#   cells:  quantities with one value per group, condition or category
+#   matrix: quantities with one value per cell of a rows x columns table
+#   terms:  quantities with one value per coefficient or path
+#   single: quantities with one value
+#   args:   test arguments typed as plain numbers or choices (mu, k, effect)
+#   claims: what the paper may say it did (tail)
+
+independent:
+  group: Compare means
+  menu: Independent-Samples t-Test (Compare 2 separate groups)
+  technical: Independent-samples t-test
+  coverage: Independent-samples t-test (Student, Welch)
+  handler: t_independent
+  example: >-
+    Do students taught with method A score higher than students taught with
+    method B?
+  share:
+    columns:
+      outcome: {label: Outcome (the numbers you compared), type: numeric}
+      group: {label: Group (a column with exactly 2 groups), type: group}
+    formula: "{outcome} ~ {group}"
+    versions:
+      welch: Welch's t (does not assume equal variances)
+      student: Student's t (assumes equal variances)
+    options: [tails, level]
+  check:
+    tests: [student, welch]
+    cells: {quantities: [n, m, sd], count: 2, names: [Group 1, Group 2]}
+    single: [t, df, p, d, ci_lower, ci_upper]
+    claims: [tail]
+
+paired:
+  group: Compare means
+  menu: Paired-Samples t-Test (Compare 2 measurements of the same people)
+  technical: Paired-samples t-test
+  coverage: Paired-samples t-test
+  handler: t_paired
+  example: >-
+    Did the same participants sleep longer after the intervention than
+    before?
+  share:
+    columns:
+      first: {label: First measurement (e.g. before), type: numeric}
+      second: {label: Second measurement (e.g. after), type: numeric}
+    formula: "Pair({first}, {second}) ~ 1"
+    versions: {paired: Paired t-test}
+    options: [mu, tails, level]
+  check:
+    tests: [paired]
+    cells: {quantities: [m, sd], count: 2, names: [Condition 1, Condition 2]}
+    single: [n, r, t, df, p, d, ci_lower, ci_upper]
+    args: [mu]
+    claims: [tail]
+
+one_sample:
+  group: Compare means
+  menu: One-Sample t-Test (Compare 1 group's mean with a fixed value)
+  technical: One-sample t-test
+  coverage: One-sample t-test
+  handler: t_one_sample
+  example: >-
+    Is the average score in this sample different from the scale midpoint
+    of 4?
+  share:
+    columns:
+      outcome: {label: Outcome (the numbers you compared), type: numeric}
+    formula: "{outcome} ~ 1"
+    versions: {one_sample: One-sample t-test}
+    options: [mu, tails, level]
+  check:
+    tests: [one_sample]
+    cells: {quantities: [m, sd], count: 1, names: [Sample]}
+    single: [n, t, df, p, d, ci_lower, ci_upper]
+    args: [mu]
+    claims: [tail]
+
+oneway:
+  group: Compare means
+  menu: One-Way Between Subjects ANOVA (Compare 3 or more separate groups)
+  technical: One-way between-subjects ANOVA
+  coverage: One-way ANOVA (between-subjects)
+  handler: anova_oneway
+  example: >-
+    Does anxiety differ between pupils in a CBT programme, a mindfulness
+    programme and a waiting list?
+  share:
+    columns:
+      outcome: {label: Outcome (the numbers you compared), type: numeric}
+      group: {label: Group (a column with two or more groups), type: group}
+    formula: "{outcome} ~ {group}"
+    versions: {oneway: One-way ANOVA (classical F test)}
+  check:
+    tests: [oneway]
+    cells: {quantities: [n, m, sd], count: [2, 8, 3], names: Group}
+    single: [f, df1, df2, p, eta2]
+
+factorial:
+  group: Compare means
+  menu: Two-Way Between Subjects ANOVA (Compare groups formed by 2 factors)
+  technical: Two-factor between-subjects ANOVA
+  coverage: Factorial ANOVA, two factors (between-subjects)
+  handler: anova_factorial
+  example: >-
+    Do sleep deprivation and caffeine each change the number of errors, and
+    does the effect of one depend on the other?
+  share:
+    columns:
+      outcome: {label: Outcome (the numbers you compared), type: numeric}
+      factor_a: {label: Factor A (e.g. sleep condition), type: group}
+      factor_b: {label: Factor B (e.g. caffeine condition), type: group}
+    formula: "{outcome} ~ {factor_a} * {factor_b}"
+    versions: {factorial: Two-way ANOVA with interaction}
+  check:
+    tests: [factorial]
+    matrix: {quantities: [n, m, sd], rows: [2, 4, 2], cols: [2, 4, 2],
+             row_label: A, col_label: B}
+    single: [f, df1, df2, p, eta2]
+    args: [effect]
+
+pearson:
+  group: Relationships
+  menu: Pearson Correlation (How strongly 2 numeric variables go together)
+  technical: Pearson correlation
+  coverage: Pearson correlation test
+  handler: cor_pearson
+  example: Do people who sleep more also report less stress?
+  share:
+    columns:
+      x: {label: First variable, type: numeric}
+      y: {label: Second variable, type: numeric}
+    formula: "~ {x} + {y}"
+    versions: {pearson: Pearson correlation}
+    options: [tails, level]
+  check:
+    tests: [pearson]
+    cells: {quantities: [m, sd], count: 2, names: [Variable 1, Variable 2]}
+    single: [n, r, df, p, ci_lower, ci_upper]
+    claims: [tail]
+
+lm_simple:
+  group: Relationships
+  menu: Simple Regression (Predict an outcome from 1 predictor)
+  technical: Simple linear regression
+  coverage: Simple regression
+  handler: lm_simple
+  example: Do students who sleep more get higher exam scores?
+  check:
+    tests: [lm_simple]
+    terms: {quantities: [b, se, t, p, ci_lower, ci_upper], count: 1,
+            names: [x]}
+    single: [n, r2, f, df1, df2, p_model]
+
+lm:
+  group: Relationships
+  menu: Multiple Regression (Predict an outcome from several predictors)
+  technical: Multiple linear regression
+  coverage: Multiple regression
+  handler: lm_multiple
+  example: Do sleep and social support each predict stress?
+  check:
+    tests: [lm]
+    terms: {quantities: [b, se, t, p, ci_lower, ci_upper], count: [2, 6, 2],
+            names: [x1, x2, x3, x4, x5, x6]}
+    single: [n, r2, f, df1, df2, p_model]
+    args: [k]
+
+lm_moderation:
+  group: Relationships
+  menu: Moderation (Does the effect of X depend on Z?)
+  technical: Moderation analysis (regression with an interaction)
+  coverage: Moderation
+  handler: lm_moderation
+  example: Does social support soften the link between stress and wellbeing?
+  check:
+    tests: [lm_moderation]
+    terms: {quantities: [b, se, t, p, ci_lower, ci_upper], count: 3,
+            names: [x, z, "x:z"]}
+    single: [n, r2, f, df1, df2, p_model]
+
+mediation:
+  group: Relationships
+  menu: Simple Mediation (Does X affect Y through M?)
+  technical: Simple mediation (regression based, as in PROCESS model 4)
+  coverage: Simple mediation
+  handler: mediation_simple
+  example: Does mindfulness lower anxiety by reducing rumination?
+  share:
+    columns:
+      x: {label: Predictor (X), type: numeric}
+      mediator: {label: Mediator (M), type: numeric}
+      y: {label: Outcome (Y), type: numeric}
+    formula: "{y} ~ {x}"
+    column_args: [mediator]
+    versions: {mediation: Simple mediation}
+  check:
+    tests: [mediation]
+    terms: {quantities: [b, se, t, p, ci_lower, ci_upper], count: 4,
+            names: [a, b, c, c_prime], fixed_names: true,
+            labels: ["a (X to M)", "b (M to Y)", "c (total effect)",
+                     "c' (direct effect)"]}
+    single: [n, indirect, indirect_ci_lower, indirect_ci_upper]
+
+chisq:
+  group: Counts
+  menu: Chi-Squared Test of Independence (Are 2 categorical variables related?)
+  technical: Chi-squared test of independence
+  coverage: Chi-squared test of independence
+  handler: chisq_independence
+  example: Did students who got a reminder text attend more often?
+  share:
+    columns:
+      row: {label: First categorical variable, type: group}
+      col: {label: Second categorical variable, type: group}
+    formula: "~ {row} + {col}"
+    versions: {chisq: Chi-squared test of independence}
+    options: [correct]
+  check:
+    tests: [chisq]
+    matrix: {quantities: [n], rows: [2, 5, 2], cols: [2, 5, 2],
+             row_label: "Row ", col_label: "Column "}
+    single: [chisq, df, p, n_total, v]
+
+gof:
+  group: Counts
+  menu: Chi-Squared Goodness of Fit (Do counts match expected proportions?)
+  technical: Chi-squared goodness-of-fit test
+  coverage: Chi-squared goodness of fit
+  handler: chisq_gof
+  example: Do students choose the three study rooms equally often?
+  share:
+    columns:
+      category: {label: Categorical variable, type: group}
+    formula: "~ {category}"
+    versions: {gof: Chi-squared goodness of fit}
+    options: [p0]
+  check:
+    tests: [gof]
+    cells: {quantities: [n, p0], count: [2, 8, 3], names: Category}
+    single: [chisq, df, p, n_total, v]
